@@ -18,8 +18,7 @@ class RoleManagementController extends Controller
 
     public function index()
     {
-        $users = UserRole::where("is_active",1)
-        ->get();
+        $users = UserRole::all();
         return response()->json(['status' => 'success', 'data' => $users], 200);
     }
 

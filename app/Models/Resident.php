@@ -25,12 +25,13 @@ class Resident extends Model
         'contact_number',
         'email',
         'is_voter',
-        'birth_date',
         'is_HW',
         'is_PWD',
         'disability',
         'is_deceased',
         'age',
+        'profile_pic',
+        // 'thumb_pic',
         'birthdate',
         'gender',
         'height_ft',
@@ -42,6 +43,7 @@ class Resident extends Model
         'street',
         'other_location',
         'note',
+        'added_by',
     ];
 
 

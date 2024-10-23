@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\UserManagementController;
 use App\Http\Controllers\Api\RoleManagementController;
 use App\Http\Controllers\Api\ResidentController;
+use App\Http\Controllers\Api\CertificatesController;
 
 
 Route::get('/user', function (Request $request) {
@@ -19,6 +20,20 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::put('brgy-users/{id}', [UserManagementController::class, 'updateByID']);
     Route::post('change-password', [UserManagementController::class, 'changePassword']);
     Route::get('users', [UserManagementController::class, 'index']);
+    
+
+    Route::get('certificates/business-permits', [CertificatesController::class, 'fetchBRGYBusinessPermit']);
+    Route::get('certificates/brgy-clearances', [CertificatesController::class, 'fetchBRGYClearance']);   
+    Route::get('certificates/good-moral', [CertificatesController::class, 'fetchBRGYGoodMoral']);
+    Route::get('certificates/indigencies', [CertificatesController::class, 'fetchBRGYIndigency']);
+    Route::get('certificates/residencies', [CertificatesController::class, 'fetchBRGYResidency']);
+    Route::get('get-barangay-officials', [CertificatesController::class, 'fetchBarangayOfficials']);
+    
+    Route::post('certificates/residencies', [CertificatesController::class, 'storeBRGYResidency']);
+    Route::post('certificates/indigencies', [CertificatesController::class, 'storeBRGYIndigency']);
+    
+    
+    Route::post('get-numbers', [CertificatesController::class, 'storeBRGYIndigency']);
     
     
     // Route::get('get-users', [UserManagementController::class, 'fetchUsers']);
@@ -50,4 +65,5 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('login', [AuthController::class, 'login']);
     Route::post('logout', [AuthController::class, 'logout']);
 
-
+    Route::post('get-numbers', [ResidentController::class, 'getNumbers']);
+    

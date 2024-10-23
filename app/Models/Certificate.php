@@ -14,8 +14,17 @@ class Certificate extends Model
      *
      * @var array
      */
-    protected $fillable = ['certificate_name', 
-    'certificate_type_id'];
+    protected $fillable = [
+        'created_by_user_id', 
+        'certificate_type_id', 
+        'control_number', 
+        'fullname', 
+        'age', 
+        'gender', 
+        'address', 
+        'living_in_brgy_since',
+        'purpose',
+];
 
     /**
      * Get the user that owns the order.
