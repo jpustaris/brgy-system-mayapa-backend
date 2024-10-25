@@ -53,6 +53,8 @@ class ResidentController extends Controller
             'height_ft' => 'required|integer',            
             'gender' => 'required|string',
             'marital_status' => 'required|string',
+            'period_of_stay',
+            'birthplace',
             'birthdate',
             'additional_name',
             'unique_identity',
@@ -85,6 +87,8 @@ class ResidentController extends Controller
             $resident->gender = $request->gender;
             $resident->marital_status = $request->marital_status;
             $resident->birthdate = $request->birthdate;
+            $resident->birthplace = $request->birthplace;
+            $resident->period_of_stay = $request->period_of_stay;
             $resident->additional_name = $request->additional_name;
             $resident->unique_identity = $request->unique_identity;
             $resident->is_voter = $request->is_voter;
@@ -104,55 +108,6 @@ class ResidentController extends Controller
                 $resident->profile_pic = 'default.jpg';
             }
             $resident->save();
-
-        // $file = $request->file('profile_pic');
-        // $path = $file->store('uploads', 'public');
-
-
-
-        // if ($temp) {
-        //     $image_name = time() . '.' . $file->extension();
-        //     $image = Image::make($request->file('profile_pic'))
-        //         ->resize(120, 120, function ($constraint) {
-        //             $constraint->aspectRatio();
-        //          });
-    
-        //     //here you can define any directory name whatever you want, if dir is not exist it will created automatically.
-        //     // Storage::putFileAs('public/images/1/smalls/' . $image_name, (string)$image->encode('png', 95), $image_name);
-        //     Storage::disk('public')->put($image, File::get($image));
-        // }
-
-        
-
-        // $resident = Resident::create([
-        //     'salutation' => $request->salutation,
-        //     'first_name' =>  $request->first_name,
-        //     'middle_name' =>  $request->middle_name,
-        //     'last_name' =>  $request->last_name,
-        //     'nationality' => $request->nationality,
-        //     'contact_number' => $request->contact_number,
-        //     'email' => $request->email,
-        //     'age' => $request->age,
-        //     'profile_pic' => $image_name,
-        //     // 'thumb_pic' => $request->thumb_pic,
-        //     'street' => $request->street,
-        //     'house_number' => $request->house_number,
-        //     'building' => $request->building,
-        //     'other_location' => $request->other_location,
-        //     'weight_kg' => $request->weight_kg,
-        //     'height_ft' => $request->height_ft,            
-        //     'gender' => $request->gender,
-        //     'marital_status' => $request->marital_status,
-        //     'birthdate' => $request->birthdate,
-        //     'additional_name' => $request->additional_name,
-        //     'unique_identity' => $request->unique_identity,
-        //     'is_voter' => $request->is_voter,
-        //     'is_HW' => $request->is_HW,
-        //     'is_PWD' => $request->is_PWD,
-        //     'is_deceased' => $request->is_deceased,            
-        //     'disability' => $request->disability,
-        //     'added_by' => $request->added_by,
-        // ]);
 
         return response()->json(['status' => 'success', 'data' => $resident], 201);
     }
@@ -214,10 +169,10 @@ class ResidentController extends Controller
 
     public function fetchPWDs()
     {
-        $seniors = Resident::where("is_PWD" ,1)
+        $pwds = Resident::where("is_PWD" ,1)
         ->where('is_deceased',0)
         ->get();
-        return response()->json(['status' => 'success', 'data' => $seniors], 200);
+        return response()->json(['status' => 'success', 'data' => $pwds], 200);
     }
 
     public function fetchSeniors()

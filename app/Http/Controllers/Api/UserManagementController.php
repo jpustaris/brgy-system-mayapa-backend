@@ -21,7 +21,7 @@ class UserManagementController extends Controller
     {
         $users = User::with(['user_role'])
         ->where("is_active",1)
-        ->whereNot("role_id",1)
+        // ->whereNot("role_id",1)
         ->get();
         return response()->json(['status' => 'success', 'data' => $users], 200);
     }

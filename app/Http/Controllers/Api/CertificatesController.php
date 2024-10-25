@@ -22,31 +22,39 @@ class CertificatesController extends Controller
 
     public function fetchBRGYBusinessPermit()
     {
-        $certificates = Certificate::where('certificate_type_id',1)->get();
+        $certificates = Certificate::where('certificate_type_id',1)->with(['resident_details'])->get();
         return response()->json(['status' => 'success', 'data' => $certificates], 200);
     }
 
     public function fetchBRGYClearance()
     {
-        $certificates = Certificate::where('certificate_type_id',2)->get();
+        $certificates = Certificate::where('certificate_type_id',2)
+        ->with(['resident_details'])
+        ->get();
         return response()->json(['status' => 'success', 'data' => $certificates], 200);
     }
 
     public function fetchBRGYGoodMoral()
     {
-        $certificates = Certificate::where('certificate_type_id',3)->get();
+        $certificates = Certificate::where('certificate_type_id',3)
+        ->with(['resident_details'])
+        ->get();
         return response()->json(['status' => 'success', 'data' => $certificates], 200);
     }
 
     public function fetchBRGYIndigency()
     {
-        $certificates = Certificate::where('certificate_type_id',4)->get();
+        $certificates = Certificate::where('certificate_type_id',4)
+        ->with(['resident_details'])
+        ->get();
         return response()->json(['status' => 'success', 'data' => $certificates], 200);
     }
 
     public function fetchBRGYResidency()
     {
-        $certificates = Certificate::where('certificate_type_id',5)->get();
+        $certificates = Certificate::where('certificate_type_id',5)
+        ->with(['resident_details'])
+        ->get();
         return response()->json(['status' => 'success', 'data' => $certificates], 200);
     }
 
@@ -56,7 +64,47 @@ class CertificatesController extends Controller
         return response()->json(['status' => 'success', 'data' => $brgy_officials], 200);
     }
 
+    public function storeBRGYClearance(Request $request)
+    {
+        try {
+            $validated = $request->validate([
+                'certificate_type_id' => 'required|integer',
+                'resident_id' => 'required|integer',
+                'purpose' => 'required|string',
+            ]);
     
+            // Get the current year from the timestamp
+            $currentYear = Carbon::now()->year;
+    
+            // Use a transaction to avoid race conditions
+            return DB::transaction(function () use ($validated, $currentYear) {
+                // Get the last control number for the given certificate type and year from the created_at column
+                $lastControlNumber = Certificate::where('certificate_type_id', $validated['certificate_type_id'])
+                                            ->whereYear('created_at', $currentYear)
+                                            ->max('control_number');
+    
+                // Increment the control number or start at 1 if none exists for the year
+                $newControlNumber = $lastControlNumber ? $lastControlNumber + 1 : 1;
+    
+                // Create the new certificate
+                $certificate = Certificate::create([
+                    'created_by_user_id' => Auth::user()->id,
+                    'resident_id' => $validated['resident_id'],
+                    'control_number' => $newControlNumber,
+                    'certificate_type_id' => $validated['certificate_type_id'],
+                    'purpose' => $validated['purpose'],
+    
+                ]);
+    
+                return response()->json([
+                    'message' => 'Certificate created successfully', 
+                    'data' => $certificate,
+                ]);
+            });
+        } catch (\Throwable $th) {
+            throw $th;
+        }        
+    }
 
     public function storeBRGYResidency(Request $request)
     {
@@ -64,11 +112,7 @@ class CertificatesController extends Controller
         try {
             $validated = $request->validate([
                 'certificate_type_id' => 'required|integer',
-                'fullname' => 'required|string',
-                'gender' => 'required|string',            
-                'age' => 'required|integer',
-                'address' => 'required|string',            
-                'living_in_brgy_since' => 'required|date',
+                'resident_id' => 'required|integer',
                 'purpose' => 'required|string',
             ]);
     
@@ -90,11 +134,7 @@ class CertificatesController extends Controller
                     'created_by_user_id' => Auth::user()->id,
                     'control_number' => $newControlNumber,
                     'certificate_type_id' => $validated['certificate_type_id'],
-                    'fullname' => $validated['fullname'],
-                    'age' => $validated['age'],
-                    'gender' => $validated['gender'],
-                    'address' => $validated['address'],
-                    'living_in_brgy_since' => $validated['living_in_brgy_since'],
+                    'resident_id' => $validated['resident_id'],
                     'purpose' => $validated['purpose'],
     
                 ]);
@@ -116,10 +156,8 @@ class CertificatesController extends Controller
         try {
             $validated = $request->validate([
                 'certificate_type_id' => 'required|integer',
-                'fullname' => 'required|string',
-                'gender' => 'required|string',            
-                'age' => 'required|integer',
-                'address' => 'required|string',            
+                // 'created_by_user_id' => 'required|integer',
+                'resident_id' => 'required|integer',              
                 'purpose' => 'required|string',
             ]);
     
@@ -141,10 +179,7 @@ class CertificatesController extends Controller
                     'created_by_user_id' => Auth::user()->id,
                     'control_number' => $newControlNumber,
                     'certificate_type_id' => $validated['certificate_type_id'],
-                    'fullname' => $validated['fullname'],
-                    'age' => $validated['age'],
-                    'gender' => $validated['gender'],
-                    'address' => $validated['address'],
+                    'resident_id' => $validated['resident_id'],
                     'purpose' => $validated['purpose'],
     
                 ]);
@@ -152,8 +187,6 @@ class CertificatesController extends Controller
                 return response()->json([
                     'message' => 'Certificate created successfully', 
                     'data' => $certificate,
-                    'lastControlNumber' => $lastControlNumber,
-                    'newControlNumber' => $newControlNumber,
                 ]);
             });
         } catch (\Throwable $th) {

@@ -17,12 +17,8 @@ class Certificate extends Model
     protected $fillable = [
         'created_by_user_id', 
         'certificate_type_id', 
+        'resident_id', 
         'control_number', 
-        'fullname', 
-        'age', 
-        'gender', 
-        'address', 
-        'living_in_brgy_since',
         'purpose',
 ];
 
@@ -32,6 +28,11 @@ class Certificate extends Model
     public function certificate_type()
     {
         return $this->hasOne(CertificateType::class, 'certificate_type_id');
+    }
+
+    public function resident_details()
+    {
+        return $this->hasOne(Resident::class, 'id', 'resident_id');
     }
 
 }
