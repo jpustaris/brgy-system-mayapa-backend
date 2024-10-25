@@ -22,6 +22,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::put('brgy-users/{id}', [UserManagementController::class, 'updateByID']);
     Route::post('change-password', [UserManagementController::class, 'changePassword']);
     Route::get('users', [UserManagementController::class, 'index']);
+    Route::post('users', [UserManagementController::class, 'store']);
     
     Route::get('get-dashboard-data', [DashboardController::class, 'fetchDashboardData']);
     
