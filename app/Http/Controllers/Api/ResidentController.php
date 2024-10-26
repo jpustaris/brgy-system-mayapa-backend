@@ -112,22 +112,7 @@ class ResidentController extends Controller
         return response()->json(['status' => 'success', 'data' => $resident], 201);
     }
 
-    public function textBlast(Request $request)
-    {
-        //
-        $api_path = config('config.api_path');
-        $api_key = config('config.api_key');
-        $message = $request->message;
-        $sender = $request->sender;
-        $numbers = $request->resident_numbers;
-        $data = [
-            'api_key' => $api_key,
-            'number' => $numbers ,
-            'message' => $message ,
-            'sendername' => $sender ,
-        ];
-        Http::post($api_path,$data);
-    }
+   
 
     // private function getNumbers($resident_ids){
     //     $temp = Resident::select("contact_number")->whereIn("id",$resident_ids)->value("contact_number");

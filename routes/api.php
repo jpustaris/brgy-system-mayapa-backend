@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\RoleManagementController;
 use App\Http\Controllers\Api\ResidentController;
 use App\Http\Controllers\Api\CertificatesController;
 use App\Http\Controllers\Api\DashboardController;
+use App\Http\Controllers\Api\SMSBlastController;
 
 
 
@@ -25,6 +26,10 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('users', [UserManagementController::class, 'store']);
     
     Route::get('get-dashboard-data', [DashboardController::class, 'fetchDashboardData']);
+    
+    Route::get('blast-messages', [SMSBlastController::class, 'fetchBlastMessages']);
+    Route::post('blast-messages', [SMSBlastController::class, 'storeBlastMessage']);
+    
     
 
     Route::get('certificates/business-permits', [CertificatesController::class, 'fetchBRGYBusinessPermit']);
