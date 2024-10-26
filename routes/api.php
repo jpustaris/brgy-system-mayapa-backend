@@ -19,7 +19,7 @@ Route::get('/user', function (Request $request) {
 
 Route::middleware(['auth:sanctum'])->group(function () {
   
-    Route::put('brgy-users/{id}', [UserManagementController::class, 'updateByID']);
+    Route::put('users/{id}', [UserManagementController::class, 'updateByID']);
     Route::post('change-password', [UserManagementController::class, 'changePassword']);
     Route::get('users', [UserManagementController::class, 'index']);
     Route::post('users', [UserManagementController::class, 'store']);

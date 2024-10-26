@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Facades\Hash;
 
 class UserManagementController extends Controller
 {
@@ -16,6 +18,7 @@ class UserManagementController extends Controller
     //     $this->middleware('auth:sanctum');
     //     $this->authorizeResource(Order::class, 'order');
     // }
+    use HasApiTokens;
 
     public function index()
     {
@@ -31,6 +34,31 @@ class UserManagementController extends Controller
     public function changePassword(Request $request)
     {
         // for change password
+        $current = $request['current_password'];
+        $new = $request['new_password'];
+        $user = Auth::user();
+        $email = $user->email;
+
+        if (!Auth::guard('web')->attempt(['email' => $email, 'password' => $current])) {
+            return response()->json([
+                'status' => 'failed',
+                'message' => 'Wrong password',
+            ], 500);
+        }else{
+            // update password here
+            $temp =  User::where('id', Auth::user()->id)
+            ->update(['password' => Hash::make($new)]);
+            $token = $user->createToken('authToken')->plainTextToken;
+            Auth::guard('web')->logout();
+            return response()->json([
+                'status' => "success",
+                'user' => $user,
+                'current' => $current,
+                'new' => $new,
+            ]);
+        }
+
+        
     }
 
     public function store(Request $request)
@@ -69,6 +97,7 @@ class UserManagementController extends Controller
             'last_name' => $request->last_name,
             'email' => $request->email,
             'role_id' => $request->role_id,
+            'is_active' => $request->is_active,
         ]);
         $users = User::all();
         if ($temp) {
