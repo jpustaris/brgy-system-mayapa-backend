@@ -41,10 +41,9 @@ class SMSBlastController extends Controller
             return DB::transaction(function () use ($validated, $currentYear) {
 
                 $message = $validated['message_content'];
-                $sender_name = "Mayapa's Barangay System";
                 $numbers = $validated['member_numbers'];
                 // logic for text blast
-                $temp = $this->textBlast($message,$sender_name,$numbers);
+                $temp = $this->textBlast($message,$numbers);
 
                 $certificate = SMSBlast::create([
                     'created_by_user_id' => Auth::user()->id,
@@ -63,15 +62,17 @@ class SMSBlastController extends Controller
         }        
     }
 
-    private function textBlast($message,$sender_name,$numbers)
+    private function textBlast($message,$numbers)
     {
         $api_path = config('sms.api_path');
         $api_key = config('sms.api_key');
+        $display_name = config('sms.display_name');
+        
         $data = [
             'api_key' => $api_key,
             'number' => $numbers ,
             'message' => $message ,
-            'sendername' => $sender_name
+            'sendername' => $display_name
         ];
         Http::post($api_path,$data);
     }
