@@ -15,13 +15,21 @@ class DashboardController extends Controller
         $residents = $this->fetchTotalResidents();
         $healthworkers = $this->fetchTotalHealthWorkers();
         $pwds = $this->fetchTotalPWDs();
+        $males = $this->fetchMaleResidents();
+        $females = $this->fetchFemaleResidents();
+        $voters = $this->fetchVoterResidents();
+        $non_voters = $this->fetchNonVoterResidents();
 
         return response()->json([
             'status' => 'success', 
             'seniors' => $seniors, 
             'residents' => $residents, 
             'healthworkers' => $healthworkers, 
-            'pwds' => $pwds,
+            'pwds' => $pwds, 
+            'males' => $males, 
+            'females' => $females, 
+            'voters' => $voters, 
+            'non_voters' => $non_voters,
         ], 200);
     
     }
@@ -55,5 +63,37 @@ class DashboardController extends Controller
         ->count();
         return $data;
     }
+
+    private function fetchMaleResidents()
+    {
+        $data = Resident::where("gender" ,"Male")
+        ->where('is_deceased',0)
+        ->count();
+        return $data;
+    }
+
     
+    private function fetchFemaleResidents()
+    {
+        $data = Resident::where("gender" ,"Female")
+        ->where('is_deceased',0)
+        ->count();
+        return $data;
+    }
+    
+    private function fetchVoterResidents()
+    {
+        $data = Resident::where("is_voter" ,1)
+        ->where('is_deceased',0)
+        ->count();
+        return $data;
+    }
+
+    private function fetchNonVoterResidents()
+    {
+        $data = Resident::where("is_voter" ,0)
+        ->where('is_deceased',0)
+        ->count();
+        return $data;
+    }
 }
