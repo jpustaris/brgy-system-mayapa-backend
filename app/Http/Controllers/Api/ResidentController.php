@@ -203,23 +203,45 @@ class ResidentController extends Controller
         return response()->json(['status' => 'success', 'data' => $non_voters], 200);
     }
 
-    public function update(Request $request, Resident $resident)
+    public function declareDeadResident(Request $request)
     {
         // $this->authorize('update', $order);
 
         $validator = Validator::make($request->all(), [
-            'product_id' => 'required|exists:products,id',
-            'quantity' => 'required|integer',
+            'id' => 'required|integer',
+            'death_reason' => 'required|string',
+            'date_of_death' => 'required|date',
+            'is_deceased' => 'required|integer',
         ]);
 
         if ($validator->fails()) {
             return response()->json(['status' => 'error', 'errors' => $validator->errors()], 422);
         }
 
+        $resident = Resident::find($request['id']);
+
         $resident->update($validator->validated());
 
         return response()->json(['status' => 'success', 'data' => $resident], 200);
     }
+
+    // public function update(Request $request, Resident $resident)
+    // {
+    //     // $this->authorize('update', $order);
+
+    //     $validator = Validator::make($request->all(), [
+    //         'product_id' => 'required|exists:products,id',
+    //         'quantity' => 'required|integer',
+    //     ]);
+
+    //     if ($validator->fails()) {
+    //         return response()->json(['status' => 'error', 'errors' => $validator->errors()], 422);
+    //     }
+
+    //     $resident->update($validator->validated());
+
+    //     return response()->json(['status' => 'success', 'data' => $resident], 200);
+    // }
 
     public function destroy(Resident $resident)
     {
