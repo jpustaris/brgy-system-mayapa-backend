@@ -53,6 +53,13 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::get('get-hws', [ResidentController::class, 'fetchHWs']);
         Route::get('get-seniors', [ResidentController::class, 'fetchSeniors']);
         Route::get('get-pwds', [ResidentController::class, 'fetchPWDs']);
+
+        Route::get('get-resident-males', [ResidentController::class, 'fetchMaleResidents']);
+        Route::get('get-resident-females', [ResidentController::class, 'fetchFemaleResidents']);
+        Route::get('get-resident-voters', [ResidentController::class, 'fetchVoterResidents']);
+        Route::get('get-resident-non-voters', [ResidentController::class, 'fetchNonVoterResidents']);
+       
+
         Route::apiResource('residents', ResidentController::class);
 
     // Role Management

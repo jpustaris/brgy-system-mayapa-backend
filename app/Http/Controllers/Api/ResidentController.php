@@ -175,6 +175,34 @@ class ResidentController extends Controller
         return response()->json(['status' => 'success', 'data' => $alive], 200);
     }
 
+    public function fetchMaleResidents()
+    {
+        $males = Resident::where('gender',"Male")
+        ->get();
+        return response()->json(['status' => 'success', 'data' => $males], 200);
+    }
+
+    public function fetchFemaleResidents()
+    {
+        $females = Resident::where('gender',"Female")
+        ->get();
+        return response()->json(['status' => 'success', 'data' => $females], 200);
+    }
+
+    public function fetchVoterResidents()
+    {
+        $voters = Resident::where('is_voter',1)
+        ->get();
+        return response()->json(['status' => 'success', 'data' => $voters], 200);
+    }
+
+    public function fetchNonVoterResidents()
+    {
+        $non_voters = Resident::where('is_voter',0)
+        ->get();
+        return response()->json(['status' => 'success', 'data' => $non_voters], 200);
+    }
+
     public function update(Request $request, Resident $resident)
     {
         // $this->authorize('update', $order);
