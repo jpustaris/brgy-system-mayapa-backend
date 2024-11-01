@@ -58,6 +58,13 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::get('get-resident-females', [ResidentController::class, 'fetchFemaleResidents']);
         Route::get('get-resident-voters', [ResidentController::class, 'fetchVoterResidents']);
         Route::get('get-resident-non-voters', [ResidentController::class, 'fetchNonVoterResidents']);
+        
+        Route::get('get-alive-residents', [ResidentController::class, 'fetchAliveResidents']);
+        Route::get('get-deceased-residents', [ResidentController::class, 'fetchDeceasedResidents']);
+        
+        
+        
+
         Route::post('declare-dead-resident', [ResidentController::class, 'declareDeadResident']);
         
 

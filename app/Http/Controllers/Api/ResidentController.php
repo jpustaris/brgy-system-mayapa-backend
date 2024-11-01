@@ -175,6 +175,13 @@ class ResidentController extends Controller
         return response()->json(['status' => 'success', 'data' => $alive], 200);
     }
 
+    public function fetchDeceasedResidents()
+    {
+        $deceased = Resident::where('is_deceased',1)
+        ->get();
+        return response()->json(['status' => 'success', 'data' => $deceased], 200);
+    }
+
     public function fetchMaleResidents()
     {
         $males = Resident::where('gender',"Male")
@@ -202,6 +209,7 @@ class ResidentController extends Controller
         ->get();
         return response()->json(['status' => 'success', 'data' => $non_voters], 200);
     }
+
 
     public function declareDeadResident(Request $request)
     {
