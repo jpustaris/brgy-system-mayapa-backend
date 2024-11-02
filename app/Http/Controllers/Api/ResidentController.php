@@ -148,6 +148,7 @@ class ResidentController extends Controller
     public function fetchHWs()
     {
         $HWs = Resident::where("is_HW",1)
+        ->where('is_deceased',0)
         ->get();
         return response()->json(['status' => 'success', 'data' => $HWs], 200);
     }
@@ -185,6 +186,7 @@ class ResidentController extends Controller
     public function fetchMaleResidents()
     {
         $males = Resident::where('gender',"Male")
+        ->where('is_deceased',0)
         ->get();
         return response()->json(['status' => 'success', 'data' => $males], 200);
     }
@@ -192,6 +194,7 @@ class ResidentController extends Controller
     public function fetchFemaleResidents()
     {
         $females = Resident::where('gender',"Female")
+        ->where('is_deceased',0)
         ->get();
         return response()->json(['status' => 'success', 'data' => $females], 200);
     }
@@ -199,6 +202,7 @@ class ResidentController extends Controller
     public function fetchVoterResidents()
     {
         $voters = Resident::where('is_voter',1)
+        ->where('is_deceased',0)
         ->get();
         return response()->json(['status' => 'success', 'data' => $voters], 200);
     }
@@ -206,6 +210,7 @@ class ResidentController extends Controller
     public function fetchNonVoterResidents()
     {
         $non_voters = Resident::where('is_voter',0)
+        ->where('is_deceased',0)
         ->get();
         return response()->json(['status' => 'success', 'data' => $non_voters], 200);
     }
