@@ -19,6 +19,10 @@ class DashboardController extends Controller
         $females = $this->fetchFemaleResidents();
         $voters = $this->fetchVoterResidents();
         $non_voters = $this->fetchNonVoterResidents();
+        $alives = $this->fetchAliveResidents();
+        $deads = $this->fetchDeadResidents();
+        
+        
 
         return response()->json([
             'status' => 'success', 
@@ -30,13 +34,15 @@ class DashboardController extends Controller
             'females' => $females, 
             'voters' => $voters, 
             'non_voters' => $non_voters,
+            'deads' => $deads,
+            'alives' => $alives,
         ], 200);
     
     }
 
     private function fetchTotalResidents()
     {
-        $data = Resident::where('is_deceased',0)->count();
+        $data = Resident::count();
         return $data;
     }
 
@@ -93,6 +99,21 @@ class DashboardController extends Controller
     {
         $data = Resident::where("is_voter" ,0)
         ->where('is_deceased',0)
+        ->count();
+        return $data;
+    }
+
+    private function fetchAliveResidents()
+    {
+        $data = Resident::where('is_deceased',0)
+        ->count();
+        return $data;
+    }
+
+
+    private function fetchDeadResidents()
+    {
+        $data = Resident::where('is_deceased',1)
         ->count();
         return $data;
     }
