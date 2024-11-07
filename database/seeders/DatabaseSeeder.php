@@ -17,10 +17,9 @@ class DatabaseSeeder extends Seeder
             UserRoleSeeder::class,
             UserSeeder::class,
             CertificateTypeSeeder::class,
-            CertificateSeeder::class,
-            ResidentSeeder::class,
-            BlotterSeeder::class,
-
+            // CertificateSeeder::class,
+            // ResidentSeeder::class,
+            // BlotterSeeder::class,
         ]);
     }
 }
