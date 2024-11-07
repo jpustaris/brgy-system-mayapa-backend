@@ -97,12 +97,15 @@ class CertificatesController extends Controller
                 ]);
     
                 return response()->json([
-                    'message' => 'Certificate created successfully', 
+                    'message_clr' => 'Certificate created successfully', 
                     'data' => $certificate,
                 ]);
             });
         } catch (\Throwable $th) {
-            throw $th;
+            // throw $th;
+            return response()->json([
+                'message_clr' => 'Upload Failed',
+            ]);
         }        
     }
 
@@ -140,14 +143,15 @@ class CertificatesController extends Controller
                 ]);
     
                 return response()->json([
-                    'message' => 'Certificate created successfully', 
+                    'message_res' => 'Certificate created successfully', 
                     'data' => $certificate,
-                    'lastControlNumber' => $lastControlNumber,
-                    'newControlNumber' => $newControlNumber,
                 ]);
             });
         } catch (\Throwable $th) {
-            throw $th;
+            // throw $th;
+            return response()->json([
+                'message_res' => 'Upload Failed',
+            ]);
         }        
     }
 
@@ -185,12 +189,15 @@ class CertificatesController extends Controller
                 ]);
     
                 return response()->json([
-                    'message' => 'Certificate created successfully', 
+                    'message_ind' => 'Certificate created successfully', 
                     'data' => $certificate,
                 ]);
             });
         } catch (\Throwable $th) {
-            throw $th;
+            // throw $th;
+            return response()->json([
+                'message_ind' => 'Upload Failed',
+            ]);
         }        
     }
 
