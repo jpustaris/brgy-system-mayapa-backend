@@ -20,7 +20,8 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['https://brgy-system-mayapa-frontend-96an-ocslskyly-jpustaris-projects.vercel.app'],
+    // 'allowed_origins' => ['https://brgy-system-mayapa-frontend-96an-ocslskyly-jpustaris-projects.vercel.app'],
+    'allowed_origins' => ['*'],
 
     'allowed_origins_patterns' => [],
 
