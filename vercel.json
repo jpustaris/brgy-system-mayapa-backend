@@ -30,8 +30,8 @@
     "LOG_DEPRECATIONS_CHANNEL": "null",
     "LOG_LEVEL": "debug",
     "SESSION_DRIVER": "database",
-    "SESSION_LIFETIME": 120,
-    "SESSION_ENCRYPT": false,
+    "SESSION_LIFETIME": "120",
+    "SESSION_ENCRYPT": "false",
     "SESSION_PATH": "/",
     "SESSION_DOMAIN": "https://brgy-system-mayapa-backend.vercel.app/",
 
