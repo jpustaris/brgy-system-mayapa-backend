@@ -90,6 +90,3 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::post('login', [AuthController::class, 'login']);
     Route::post('logout', [AuthController::class, 'logout']);
-
-    Route::get('test', [ResidentController::class, 'test']);
-    
