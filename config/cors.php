@@ -15,12 +15,13 @@ return [
     |
     */
 
-    // 'paths' => ['api/*', 'sanctum/csrf-cookie'],
-    'paths' => ['*'],
+    'paths' => ['api/*', 'sanctum/csrf-cookie', 'test'],
+    // 'paths' => ['*'],
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['127.0.0.1:8000','http://localhost:8080'],
+    // 'allowed_origins' => ['https://brgy-system-mayapa-frontend-96an-ocslskyly-jpustaris-projects.vercel.app'],
+    'allowed_origins' => ['*'],
 
     'allowed_origins_patterns' => [],
 
@@ -30,6 +31,6 @@ return [
 
     'max_age' => 0,
 
-    'supports_credentials' => false,
+    'supports_credentials' => true,
 
 ];
