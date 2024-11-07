@@ -30,6 +30,11 @@ class ResidentController extends Controller
         }
         return response()->json(['status' => 'success', 'data' => $residents], 200);
     }
+    public function test()
+    {
+        $residents = Resident::all();
+        return response()->json(data: ['status'=> 'success','data'=> $residents],status: 200);
+    }
 
     public function store(Request $request)
     {
