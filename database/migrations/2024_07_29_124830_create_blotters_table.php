@@ -13,6 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
+        Schema::dropIfExists('blotters');
         Schema::create('blotters', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('complainant'); //nagrereklamo 

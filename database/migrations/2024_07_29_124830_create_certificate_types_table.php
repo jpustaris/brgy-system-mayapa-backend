@@ -13,6 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
+        Schema::dropIfExists('certificate_types');
         Schema::create('certificate_types', function (Blueprint $table) {
             $table->id();
             $table->string('certificate_code')->nullable();
