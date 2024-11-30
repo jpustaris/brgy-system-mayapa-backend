@@ -15,22 +15,23 @@ return [
     |
     */
 
+    // local
     'paths' => ['api/*', 'sanctum/csrf-cookie', 'test'],
-    // 'paths' => ['*'],
-
     'allowed_methods' => ['*'],
-
-    // 'allowed_origins' => ['https://brgy-system-mayapa-frontend-96an-ocslskyly-jpustaris-projects.vercel.app'],
     'allowed_origins' => ['*'],
-
     'allowed_origins_patterns' => [],
-
     'allowed_headers' => ['*'],
-
     'exposed_headers' => [],
-
     'max_age' => 0,
-
     'supports_credentials' => true,
 
+    // prod
+    // 'paths' => ['api/*', 'sanctum/csrf-cookie', 'test'],
+    // 'allowed_methods' => ['*'],
+    // 'allowed_origins' => ['https://barangaymayapa.online','https://www.barangaymayapa.online','https://www.brgymayapa.online','https://brgymayapa.online'],
+    // 'allowed_origins_patterns' => [],
+    // 'allowed_headers' => ['*'],
+    // 'exposed_headers' => [],
+    // 'max_age' => 0,
+    // 'supports_credentials' => false,
 ];

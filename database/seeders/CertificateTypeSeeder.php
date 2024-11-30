@@ -17,6 +17,6 @@ class CertificateTypeSeeder extends Seeder
     {
         CertificateType::create([ 'certificate_code' => "BRGY-CLRNC", 'certificate_type_name' => "Barangay Clearance", ]);
         CertificateType::create([ 'certificate_code' => "BRGY-INDGC", 'certificate_type_name' => "Certificate of Indigency"]);
-        CertificateType::create([ 'certificate_code' => "BSNS-PRMT", 'certificate_type_name' => "Business Permit"]);
+        CertificateType::create([ 'certificate_code' => "BRGY-RES", 'certificate_type_name' => "Certificate of Residency"]);
     }
 }

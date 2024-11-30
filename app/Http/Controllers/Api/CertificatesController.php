@@ -22,13 +22,13 @@ class CertificatesController extends Controller
 
     public function fetchBRGYBusinessPermit()
     {
-        $certificates = Certificate::where('certificate_type_id',1)->with(['resident_details'])->get();
+        $certificates = Certificate::where('certificate_type_id',4)->with(['resident_details'])->get();
         return response()->json(['status' => 'success', 'data' => $certificates], 200);
     }
 
     public function fetchBRGYClearance()
     {
-        $certificates = Certificate::where('certificate_type_id',2)
+        $certificates = Certificate::where('certificate_type_id',1)
         ->with(['resident_details'])
         ->get();
         return response()->json(['status' => 'success', 'data' => $certificates], 200);
@@ -36,7 +36,7 @@ class CertificatesController extends Controller
 
     public function fetchBRGYGoodMoral()
     {
-        $certificates = Certificate::where('certificate_type_id',3)
+        $certificates = Certificate::where('certificate_type_id',5)
         ->with(['resident_details'])
         ->get();
         return response()->json(['status' => 'success', 'data' => $certificates], 200);
@@ -44,7 +44,7 @@ class CertificatesController extends Controller
 
     public function fetchBRGYIndigency()
     {
-        $certificates = Certificate::where('certificate_type_id',4)
+        $certificates = Certificate::where('certificate_type_id',2)
         ->with(['resident_details'])
         ->get();
         return response()->json(['status' => 'success', 'data' => $certificates], 200);
@@ -52,7 +52,7 @@ class CertificatesController extends Controller
 
     public function fetchBRGYResidency()
     {
-        $certificates = Certificate::where('certificate_type_id',5)
+        $certificates = Certificate::where('certificate_type_id',3)
         ->with(['resident_details'])
         ->get();
         return response()->json(['status' => 'success', 'data' => $certificates], 200);

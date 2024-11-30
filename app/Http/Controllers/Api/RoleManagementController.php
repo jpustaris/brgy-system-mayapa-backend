@@ -24,7 +24,7 @@ class RoleManagementController extends Controller
 
 
 
-    public function store(Request $request)
+    public function storeRole(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'role_name' => 'required|string',
@@ -40,7 +40,7 @@ class RoleManagementController extends Controller
     
     }
 
-    public function update(Request $request,$id)
+    public function updateRole(Request $request,$id)
     {
         $temp = UserRole::where('id', $id)
         ->update([
@@ -54,7 +54,7 @@ class RoleManagementController extends Controller
         }
     }
 
-    public function destroy($id)
+    public function deleteRole($id)
     {
         // $this->authorize('delete', $order);
 
